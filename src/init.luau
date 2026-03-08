@@ -1332,11 +1332,8 @@ function VoxBreaker:WeldTo(Part : Part) --welds the hitbox to a specified part
 
 			end)
 			local connection2 
-			connection2 = self.Part.AttributeChanged:Connect(function(attribute)
-				if self.Part:GetAttribute("Active") == false then
-					connection:Disconnect()
-					connection2:Disconnect()
-				elseif self.Part:GetAttribute("Unweld") == true then
+			connection2 = self.Part.AttributeChanged:Connect(function()
+				if self.Part:GetAttribute("Active") == false or self.Part:GetAttribute("Unweld") == true then
 					connection:Disconnect()
 					connection2:Disconnect()
 				end
@@ -1346,11 +1343,8 @@ function VoxBreaker:WeldTo(Part : Part) --welds the hitbox to a specified part
 			local canRun = true
 
 			local connection
-			connection = self.Part.AttributeChanged:Connect(function(attribute)
-				if self.Part:GetAttribute("Active") == false then
-					canRun = false
-					connection:Disconnect()
-				elseif self.Part:GetAttribute("Unweld") == true then
+			connection = self.Part.AttributeChanged:Connect(function()
+				if self.Part:GetAttribute("Active") == false or self.Part:GetAttribute("Unweld") == true then
 					canRun = false
 					connection:Disconnect()
 				end
